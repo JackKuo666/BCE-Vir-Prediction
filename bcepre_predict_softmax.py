@@ -1,0 +1,54 @@
+import numpy as np
+import pandas as pd
+from collections import defaultdict
+import os
+
+input_csv = "example_data/PDCoV_GDSG10_RBD_aa_8aa_logits.csv"  # 输入 CSV 文件路径（由 bcepre_predict_logits.py 生成）
+df = pd.read_csv(input_csv)
+
+first_window = df.iloc[0]['sequence']
+full_sequence = first_window
+
+for i in range(1, len(df)):
+    next_seq = df.iloc[i]['sequence']
+    full_sequence += next_seq[-1] 
+
+print(f"Reconstructed full sequence ({len(full_sequence)}aa): {full_sequence}")
+
+def softmax(logit_0, logit_1):
+    exp_0, exp_1 = np.exp(logit_0), np.exp(logit_1)
+    return exp_1 / (exp_0 + exp_1)
+
+df["p_epitope"] = df.apply(lambda row: softmax(row["logit_0"], row["logit_1"]), axis=1)
+
+aa_probs = defaultdict(list)
+window_size = len(df.iloc[0]['sequence']) 
+
+for i, row in df.iterrows():
+    p = row["p_epitope"]
+    for pos in range(i, i + window_size):
+        if pos < len(full_sequence):  
+            aa_probs[pos].append(p)
+
+results = []
+for pos in range(len(full_sequence)):
+    if pos in aa_probs:
+        avg_prob = np.mean(aa_probs[pos])
+    else:
+        avg_prob = np.nan  
+        
+    results.append({
+        "position": pos + 1,  
+        "amino_acid": full_sequence[pos],
+        "probability": avg_prob,
+        "coverage": len(aa_probs.get(pos, []))  
+    })
+
+result_df = pd.DataFrame(results)
+
+output_csv = "predictions/PDCoV_GDSG10_RBD_aa_8aa_logits_probabilities_with_aa.csv"  # 输出 CSV 文件路径
+os.makedirs(os.path.dirname(output_csv), exist_ok=True)  # 确保输出目录存在
+result_df.to_csv(output_csv, index=False)
+print(f"Results saved to {output_csv}")
+print("\nOutput preview (first 20 positions):")
+print(result_df.head(20))

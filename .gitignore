@@ -1,0 +1,32 @@
+# Trained ESM model directory
+trained_esm_model/model.safetensors
+trained_esm_model/config.json
+trained_esm_model/special_tokens_map.json
+trained_esm_model/tokenizer_config.json
+trained_esm_model/vocab.txt
+
+# Output predictions
+predictions/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
