@@ -65,7 +65,7 @@ def save_predictions_to_csv(predictions, output_file):
     print(f"Predictions saved to {output_file}")
 
 def main():
-    fasta_file = 'example_data/PDCoV_GDSG10_RBD_aa.fa'  # Input FASTA file path
+    fasta_file = 'example_data/test_aa.fa'  # Input FASTA file path
     sequence = read_fasta(fasta_file)
 
     predictions = sliding_window_prediction(sequence, min_window_size=5, batch_size=8)

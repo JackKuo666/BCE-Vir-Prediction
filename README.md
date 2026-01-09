@@ -87,8 +87,8 @@ BCE-Vir-Prediction/
 ├── trained_esm_model/                # Pre-trained model folder (needs to be downloaded)
 │   └── README.md                     # Model download instructions
 ├── example_data/                     # Example data folder
-│   ├── PDCoV_GDSG10_RBD_aa.fa       # Example input FASTA file
-│   └── PDCoV_GDSG10_RBD_aa_8aa_logits.csv  # Example intermediate results
+│   ├── test_aa.fa       # Example input FASTA file
+│   └── test_aa_8aa_logits.csv  # Example intermediate results
 ├── predictions/                      # Prediction output folder (auto-created)
 ├── README.md                         # This file
 ├── LICENSE                           # License file
