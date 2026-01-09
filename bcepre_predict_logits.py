@@ -65,13 +65,13 @@ def save_predictions_to_csv(predictions, output_file):
     print(f"Predictions saved to {output_file}")
 
 def main():
-    fasta_file = 'example_data/PDCoV_GDSG10_RBD_aa.fa'  # 输入 FASTA 文件路径
+    fasta_file = 'example_data/PDCoV_GDSG10_RBD_aa.fa'  # Input FASTA file path
     sequence = read_fasta(fasta_file)
 
     predictions = sliding_window_prediction(sequence, min_window_size=5, batch_size=8)
 
-    output_file = 'predictions/PDCoV_GDSG10_RBD_aa_logits.csv'  # 输出 CSV 文件路径
-    os.makedirs(os.path.dirname(output_file), exist_ok=True)  # 确保输出目录存在
+    output_file = 'predictions/PDCoV_GDSG10_RBD_aa_logits.csv'  # Output CSV file path
+    os.makedirs(os.path.dirname(output_file), exist_ok=True)  # Ensure output directory exists
     save_predictions_to_csv(predictions, output_file)
 
 if __name__ == "__main__":

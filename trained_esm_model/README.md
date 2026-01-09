@@ -1,23 +1,23 @@
-# 模型下载说明
+# Model Download Instructions
 
-本文件夹用于存放训练好的 ESM 模型文件。
+This folder is used to store the trained ESM model files.
 
-## 如何下载模型
+## How to Download the Model
 
-### 方法 1: 使用 Hugging Face Hub (推荐)
+### Method 1: Using Hugging Face Hub (Recommended)
 
-使用 `huggingface_hub` 库下载模型：
+Use the `huggingface_hub` library to download the model:
 
 ```bash
 pip install huggingface_hub
 ```
 
-然后运行以下 Python 代码：
+Then run the following Python code:
 
 ```python
 from huggingface_hub import snapshot_download
 
-# 下载模型到当前文件夹
+# Download the model to the current folder
 snapshot_download(
     repo_id="jackkuo/BCE-Vir-Prediction_model",
     local_dir="./",
@@ -25,39 +25,39 @@ snapshot_download(
 )
 ```
 
-或者在命令行中使用 `huggingface-cli`：
+Or use `huggingface-cli` in the command line:
 
 ```bash
 huggingface-cli download jackkuo/BCE-Vir-Prediction_model --local-dir ./ --local-dir-use-symlinks False
 ```
 
-### 方法 2: 使用 Git LFS
+### Method 2: Using Git LFS
 
-如果安装了 Git LFS，可以直接克隆：
+If Git LFS is installed, you can clone directly:
 
 ```bash
 git lfs install
 git clone https://huggingface.co/jackkuo/BCE-Vir-Prediction_model .
 ```
 
-### 方法 3: 手动下载
+### Method 3: Manual Download
 
-访问模型页面：https://huggingface.co/jackkuo/BCE-Vir-Prediction_model
+Visit the model page: https://huggingface.co/jackkuo/BCE-Vir-Prediction_model
 
-在文件列表中选择需要的文件进行下载，并保存到本文件夹中。
+Select the required files from the file list to download and save them to this folder.
 
-## 模型文件结构
+## Model File Structure
 
-下载完成后，本文件夹应包含以下文件：
-- `config.json` - 模型配置文件
-- `model.safetensors` - 模型权重文件（使用 safetensors 格式）
-- `tokenizer_config.json` - 分词器配置文件
-- `vocab.txt` - 词汇表文件
-- `special_tokens_map.json` - 特殊标记映射文件
+After downloading, this folder should contain the following files:
+- `config.json` - Model configuration file
+- `model.safetensors` - Model weights file (in safetensors format)
+- `tokenizer_config.json` - Tokenizer configuration file
+- `vocab.txt` - Vocabulary file
+- `special_tokens_map.json` - Special tokens mapping file
 
-## 使用说明
+## Usage Instructions
 
-模型下载完成后，在代码中使用以下路径加载模型：
+After downloading the model, use the following path in your code to load the model:
 
 ```python
 model_path = "trained_esm_model"
